@@ -3,7 +3,7 @@
 class nodeRM {
     _construct() {
         this._listener = [];
-        this._modules = [];
+        this._modules = {};
     }
 
     /**
@@ -21,8 +21,7 @@ class nodeRM {
         }
         this._listener.push({
             required: required,
-            callback: callback,
-            called: false
+            callback: callback
         });
     }
 
@@ -30,20 +29,32 @@ class nodeRM {
      * adds a new listener to the modules
      * @access public
      * @param {String} required - the module name
+     * @param {Object} required - the module exports
      */
-    add(module) {
-        if(typeof this._modules[module] !== 'undefined') {
+    add(name, exports) {
+        if(typeof this._modules[name] !== 'undefined') {
             throw 'module already exists';
         }
-        this._modules[module] = true;
+        this._modules[name] = exports;
 
-        for(let l in this._listener) {
-            for(let rm in l.required) {
-                if(typeof this._modules[rm] === 'undefined') {
-                    return;
+        let index = this._listener.length;
+        while(index--)
+        {
+            let modules = {};
+            let rs = true;
+            for(let rm in this._listener[index].required) {
+                let mn = this._listener[index].required[rm];
+                if(typeof this._modules[mn] === 'undefined') {
+                    rs = false;
+                    break;
                 }
+                modules[mn] = this._modules[mn];
             }
-            l.callback();
+            if(rs) {
+                let l = this._listener[index];
+                this._listener.splice(i, 1);
+                l.callback(modules);
+            }
         }
     }
 }

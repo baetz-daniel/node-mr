@@ -9,8 +9,11 @@ Node-mr is a help package to ensure that all modules are loaded before a certain
 ```javascript
 const mr = require('node-mr');
 const instance = mr.get('instance');
-instance.listen(['moduleA','moduleB'], () => {
-	//do sth. if moduleA and moduleB exists
+instance.listen(['moduleA','moduleB'], function (modules) {
+	//do sth. with moduleA and moduleB if they exists
+	modules.moduleA.test();
+	modules.moduleB.test();
+	
 });
 ```
 -moduleA.js
@@ -19,7 +22,11 @@ instance.listen(['moduleA','moduleB'], () => {
 const mr = require('node-mr');
 const instance = mr.get('instance');
 
-instance.add('moduleA');
+instance.add('moduleA', {
+	test: function() {
+		console.log('moduleA: test called');
+	}
+});
 ```
 
 -moduleB.js
@@ -28,7 +35,11 @@ instance.add('moduleA');
 const mr = require('node-mr');
 const instance = mr.get('instance');
 
-instance.add('moduleB');
+instance.add('moduleB', {
+	test: function() {
+		console.log('moduleB: test called');
+	}
+});
 ```
 
 ## Installing
@@ -48,8 +59,9 @@ instance.listen([requiredModules], [callback]);
 * requiredModules — `{array}` — the required module names.<br/>
 * callback — `{function}` — the callback called if all required modules exists.<br/>
 
-instance.add([modulesName]);
+instance.add([modulesName], [exports]);
 * modulesName — `{string}` — add a module to the list.<br/>
+* exports — `{object}` — module exports.<br/>
 
 ```
 ## Changelog
