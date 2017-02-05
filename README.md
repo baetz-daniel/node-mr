@@ -53,15 +53,15 @@ npm install node-mr
 ```javascript
 const mr = require('node-mr');
 const instance = mr.get([instanceName]);	//returns an existing instance or create a new one
-* instanceName — `{string}` — the instance name.<br/>
+* instanceName - `{string}` - the instance name.<br/>
 
 instance.listen([requiredModules], [callback]);
-* requiredModules — `{array}` — the required module names.<br/>
-* callback — `{function}` — the callback called if all required modules exists.<br/>
+* requiredModules - `{array}` - the required module names.<br/>
+* callback - `{function}` - the callback called if all required modules exists.<br/>
 
 instance.add([modulesName], [exports]);
-* modulesName — `{string}` — add a module to the list.<br/>
-* exports — `{object}` — module exports.<br/>
+* modulesName - `{string}` - add a module to the list.<br/>
+* exports - `{object}` - module exports.<br/>
 
 ```
 ## Changelog
