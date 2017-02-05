@@ -1,7 +1,7 @@
 'use strict';
 
 class nodeRM {
-    _construct() {
+    constructor() {
         this._listener = [];
         this._modules = {};
     }
@@ -60,7 +60,7 @@ class nodeRM {
 }
 
 class nodeRMManager {
-    _construct() {
+    constructor() {
         this._instances = {};
     }
 
