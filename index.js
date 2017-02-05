@@ -23,6 +23,7 @@ class nodeRM {
             required: required,
             callback: callback
         });
+        this._update();
     }
 
     /**
@@ -36,8 +37,15 @@ class nodeRM {
             throw 'module already exists';
         }
         this._modules[name] = exports;
+        this._update();
+    }
 
-        let index = this._listener.length;
+    /**
+     * checks if a listener callback can be called
+     * @access private
+     */
+    _update() {
+		let index = this._listener.length;
         while(index--)
         {
             let modules = {};
@@ -52,11 +60,12 @@ class nodeRM {
             }
             if(rs) {
                 let l = this._listener[index];
-                this._listener.splice(i, 1);
+                this._listener.splice(index, 1);
                 l.callback(modules);
+
             }
         }
-    }
+	}
 }
 
 class nodeRMManager {
