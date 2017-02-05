@@ -1,6 +1,6 @@
 {
   "name": "node-mr",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Node-mr is a help package to ensure that all modules are loaded before a certain function can be executed.",
   "main": "index.js",
   "repository": {
